@@ -1,0 +1,6 @@
+oldflesh
+bower_components
+node_modules
+public/js/*
+!public/js/lib
+public/js/bower
