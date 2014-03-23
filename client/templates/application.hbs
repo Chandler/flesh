@@ -1,36 +1,38 @@
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Flesh</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-          </ul>
-        </div>
-      </div>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Flesh</a>
     </div>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li>{{#link-to 'login'}}Login{{/link-to}}</li>
-            <li><a href="">Create Account</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li class="active">{{#link-to 'discovery'}}Discovery{{/link-to}}</li>
-            <li><a href="#">Game</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Stats</a></li>
-          </ul>
-
-        </div>          
-        <!--ember entry point -->
-      </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li> {{#link-to 'user.edit' session.user}} Settings {{/link-to}} </li>
+      </ul>
     </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        {{#if session.isAuthenticated}}
+          <li><a {{ action 'invalidateSession' }}>Logout</a></li>
+          <li>{{#link-to 'user' session.user}} Profile {{/link-to}}</li>
+          <li>{{#link-to 'game' 1}} Game {{/link-to}}</li>
+        {{else}}
+          <li>{{#link-to 'login'}} Login {{/link-to}}</li>
+          <li>{{#link-to 'users.create'}} Create Account {{/link-to}}</li>
+        {{/if}}
+        <li>{{#link-to 'discovery'}} Search for games {{/link-to}}</li>
+      </ul>
+    </div> 
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      {{outlet}}
+    </div>
+  </div>
+</div>

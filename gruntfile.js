@@ -19,8 +19,9 @@ module.exports = function(grunt) {
             'public/js/bower/jquery.js',
             'public/js/bower/underscore.js',
             'public/js/bower/handlebars.js',
-            'public/js/bower/ember.js',
-            'public/js/bower/ember-data.js',
+            'public/js/lib/ember.js',
+            'public/js/lib/ember-data.js',
+            'public/js/lib/ember-simple-auth.js'
           ],
         dest: 'public/js/libraries.js',
       }
@@ -64,15 +65,22 @@ module.exports = function(grunt) {
               TEMPLATES['comments/edit']
           */
 
-          split_path = filename.split('/')
-          resource_name = split_path[split_path.length-2]
-          template_name = split_path.pop().split('.')[0]
-
-          if(resource_name == template_name || resource_name == 'templates') {
-            return template_name
-          } else {
+          file_name_parts = filename.split('/').pop().split('.')
+          
+          if (file_name_parts.length == 2) {
+            return file_name_parts[0]
+          } else if(file_name_parts.length == 3) {
+            resource_name   = file_name_parts[0]
+            template_name   = file_name_parts[1]
             return resource_name + "/" + template_name
           }
+
+
+          // if(file_name_parts.length <= 3) {
+          //   return template_name
+          // } else {
+          //   return resource_name + "/" + template_name
+          // }
         }
       },
       compile: {
@@ -94,7 +102,7 @@ module.exports = function(grunt) {
         tasks: 'coffee'
       },
       ember_handlebars: {
-        files: ['client/templates/**/*.handlebars'],
+        files: ['client/templates/**/*.hbs'],
         tasks: 'ember_handlebars'
       },
       stylus: {
