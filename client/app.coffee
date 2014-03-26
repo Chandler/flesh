@@ -38,13 +38,17 @@ App.CustomAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend(authenti
   )
 )
 
-App.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.ApplicationRouteMixin)
 
+App.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.ApplicationRouteMixin)
 
 # App.ApplicationAdapter = DS.FixtureAdapter
 
 App.ApplicationAdapter = DS.RESTAdapter.extend
   namespace: 'api'
+
+App.ApplicationSerializer = DS.RESTSerializer.extend
+  keyForRelationship: (key, relationship) ->
+    key.replace(/s*$/, '') + "_ids"
 
 App.Router = Ember.Router.extend
   enableLogging: true

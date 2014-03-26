@@ -1,19 +1,19 @@
 App.User = DS.Model.extend
-  firstName:          DS.attr      'string'
-  lastName:           DS.attr      'string'
-  screenName:         DS.attr      'string'
-  email:              DS.attr      'string'
-  phone:              DS.attr      'string'
-  avatarUrl:          DS.attr      'string'
-  password:           DS.attr      'string'
-  player:             DS.belongsTo 'player', { async: true }
+  first_name:          DS.attr      'string'
+  last_name:           DS.attr      'string'
+  screen_name:         DS.attr      'string'
+  email:               DS.attr      'string'
+  phone:               DS.attr      'string'
+  avatar_url:          DS.attr      'string'
+  password:            DS.attr      'string'
+  player:              DS.belongsTo 'player', { async: true }
 
 App.Game = DS.Model.extend
   name:               DS.attr      'string'
   slug:               DS.attr      'string'
-  avatarUrl:          DS.attr      'string'
+  avatar_url:         DS.attr      'string'
   description:        DS.attr      'string'
-  runningStartTime:   DS.attr      'string'
+  running_start_time: DS.attr      'string'
   players:            DS.hasMany   'player', { async: true }
   organization:       DS.belongsTo 'organization'
 
@@ -26,27 +26,66 @@ App.Organization = DS.Model.extend
 
 App.Player = DS.Model.extend
   status:             DS.attr       'string' #human/zombie/starved
-  humanCode:          DS.attr       'string'
+  human_code:         DS.attr       'string'
   game:               DS.belongsTo  'game'
-  user:               DS.belongsTo  'user'
+  user:               DS.belongsTo  'user' #embedded:'always' ?
+
+App.Event = DS.Model.extend
+  event_type:         DS.attr       'string' 
+  user:               DS.attr       'user'
+  game:               DS.belongsTo  'game'
+  organization:       DS.belongsTo  'organization'
+  player:             DS.belongsTo  'player'
+  tag:                DS.belongsTo  'tag' #embedded:'always'?
+
+App.Tag = DS.Model.extend
+  tagger:  DS.belongsTo 'player'
+  taggee:  DS.belongsTo 'player'
+  event:   DS.belongsTo 'event'
+
+App.Event.FIXTURES = [
+  {
+    id: 1,
+    tag: 1
+    event_type: 'tag'
+  },
+  {
+    id: 2,
+    player: 2,
+    event_type: 'join'    
+  }
+]
+
+App.Tag.FIXTURES = [
+  {
+    id: 1,
+    tagger: 1,
+    taggee: 2
+  },
+  {
+    id: 2,
+    tagger: 1,
+    taggee: 2
+  }
+]
 
 App.User.FIXTURES = [
   {
     id: 1,
-    screenName: "cba",
-    firstName: "Chandler",
-    lastName: "Abraham",
-    avatarUrl: "https://pbs.twimg.com/profile_images/3724531029/e7d7b43e709d9f5d80280c11a8263afc.jpeg",
+    screen_name: "cba",
+    first_name: "Chandler",
+    last_name: "Abraham",
+    avatar_url: "https://pbs.twimg.com/profile_images/3724531029/e7d7b43e709d9f5d80280c11a8263afc.jpeg",
     email: "chandler@flesh.io",
     phone: "12089912446",
     password: "candles"
     player: 1
   }, {
     id: 2,
-    screenName: "arkenflame"
-    firstName: "Mike",
-    lastName: "Solomon",
-    avatarUrl: "https://pbs.twimg.com/profile_images/378800000823542205/025c065b550ce9dfbf786ff746b5ec83.jpeg",
+    screen_name: "arkenflame"
+    first_name: "Mike",
+    last_name: "Solomon",
+    avatar_url: "https://pbs.twimg.com/profile_images/378800000823542205/025c065b550ce9dfbf786ff746b5ec83.jpeg",
     email: "mike@flesh.io",
     phone: "12089912446",
     password: "bicyles"
@@ -54,10 +93,10 @@ App.User.FIXTURES = [
   },
   {
     id: 3,
-    screenName: "lndndrk"
-    firstName: "Sasha",
-    lastName: "Solomon",
-    avatarUrl: "https://pbs.twimg.com/profile_images/437126131217494017/XCV2kv3l_bigger.jpeg",
+    screen_name: "lndndrk"
+    first_name: "Sasha",
+    last_name: "Solomon",
+    avatar_url: "https://pbs.twimg.com/profile_images/437126131217494017/XCV2kv3l_bigger.jpeg",
     email: "sasha@flesh.io",
     phone: "12089912446",
     password: "flowers",
@@ -65,10 +104,10 @@ App.User.FIXTURES = [
   },
   {
     id: 4,
-    firstName: "Rick",
-    lastName: "Bobby",
-    screenName: "RickyBobby"
-    avatarUrl: "https://pbs.twimg.com/profile_images/2649571860/910e545d7537be6148b7923aa86d2144.png",
+    first_name: "Rick",
+    last_name: "Bobby",
+    screen_name: "RickyBobby"
+    avatar_url: "https://pbs.twimg.com/profile_images/2649571860/910e545d7537be6148b7923aa86d2144.png",
     email: "rick@hotmail.com",
     phone: "12089912446",
     password: "rick",
@@ -76,50 +115,50 @@ App.User.FIXTURES = [
   },
   {
     id: 5,
-    firstName: "a",
-    lastName: "b",
-    screenName: "ThinMints",
-    avatarUrl: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
+    first_name: "a",
+    last_name: "b",
+    screen_name: "ThinMints",
+    avatar_url: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
     player: 5
   },
   {
     id: 6,
-    firstName: "a",
-    lastName: "b",
-    screenName: "TaylorSwift",
-    avatarUrl: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
+    first_name: "a",
+    last_name: "b",
+    screen_name: "TaylorSwift",
+    avatar_url: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
     player: 6
   },
   {
     id: 7,
-    firstName: "a",
-    lastName: "b",
-    screenName: "SlideFilm",
-    avatarUrl: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
+    first_name: "a",
+    last_name: "b",
+    screen_name: "SlideFilm",
+    avatar_url: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
     player: 7
   },
   {
     id: 8,
-    firstName: "a",
-    lastName: "b",
-    screenName: "TomClancy",
-    avatarUrl: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
+    first_name: "a",
+    last_name: "b",
+    screen_name: "TomClancy",
+    avatar_url: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
     player: 8
   },
   {
     id: 9,
-    firstName: "a",
-    lastName: "b",
-    screenName: "OlympicFigureSkating",
-    avatarUrl: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
+    first_name: "a",
+    last_name: "b",
+    screen_name: "OlympicFigureSkating",
+    avatar_url: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
     player: 9
   },
   {
     id: 10,
-    firstName: "a",
-    lastName: "b",
-    screenName: "AbsoluteCitron",
-    avatarUrl: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
+    first_name: "a",
+    last_name: "b",
+    screen_name: "AbsoluteCitron",
+    avatar_url: "https://pbs.twimg.com/profile_images/378800000324784929/1a4ee3fde80808a96ed268a7fb94682d_bigger.png",
     player: 10
   }
 ]
@@ -149,9 +188,9 @@ App.Game.FIXTURES = [
     id: 1,
     name: "Idaho Fall Game",       
     slug: "idahofall2012",
-    avatarUrl: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTCCdUls2NhompPan8buZ2vaCB_to7qBWUrqzSMuZNl5FeIVvZC",
+    avatar_url: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTCCdUls2NhompPan8buZ2vaCB_to7qBWUrqzSMuZNl5FeIVvZC",
     description: "the best university in the world",
-    runningStartTime: "1393117973",
+    running_start_time: "1393117973",
     players: [1,2,3,4,5,6,7,8,9,10],
     organization: 1
 
@@ -160,7 +199,7 @@ App.Game.FIXTURES = [
     id: 2,  
     name: "WSU fall game",       
     slug: "wsufall2012",
-    runningStartTime: "1393117974",
+    running_start_time: "1393117974",
     description: "pretty decent university",
     players: [4],
     organization: 2
@@ -171,70 +210,70 @@ App.Player.FIXTURES = [
   {
     id: 1,
     status: "human",
-    humanCode: "ASDF",
+    human_code: "ASDF",
     user: 1,
     game: 1
   }, 
   {
     id: 2,
     status: "starved",
-    humanCode: "NEWM",
+    human_code: "NEWM",
     user: 2,
     game: 1
   },
   {
     id: 3,
     status: "zombie",
-    humanCode: "USHF",
+    human_code: "USHF",
     user: 3,
     game: 1
   },
   {
     id: 4,
     status: "human",
-    humanCode: "MKDL",
+    human_code: "MKDL",
     user: 4,
     game: 2
   },
   {
     id: 5,
     status: "human",
-    humanCode: "MKDL",
+    human_code: "MKDL",
     user: 5,
     game: 1
   },
   {
     id: 6,
     status: "human",
-    humanCode: "MKDL",
+    human_code: "MKDL",
     user: 6,
     game: 1
   },
   {
     id: 7,
     status: "human",
-    humanCode: "MKDL",
+    human_code: "MKDL",
     user: 7,
     game: 1
   },
   {
     id: 8,
     status: "human",
-    humanCode: "MKDL",
+    human_code: "MKDL",
     user: 8,
     game: 1
   },
   {
     id: 9,
     status: "human",
-    humanCode: "MKDL",
+    human_code: "MKDL",
     user: 9,
     game: 1
   },
   {
     id: 10,
     status: "human",
-    humanCode: "MKDL",
+    human_code: "MKDL",
     user: 10,
     game: 1
   }

@@ -1,0 +1,34 @@
+{{#if isTag}}
+<div class="event-feed-row tag-event">
+  <div class="top-inner-row">
+    <div class="tag-time">
+    {{event.tag.claimed}}
+    </div>
+  </div> 
+  <div class="middle-inner-row">
+    <div class="tag-photo"> 
+        {{#linkTo 'user' event.tag.tagger.user}}
+          {{tag.taggee.user.avatar}}
+        {{/linkTo}}
+    </div>
+    <div class="tag-action">
+      <div class="tag-text">tagged</div>
+      <div class="tag-underline"></div>
+    </div>
+      <div class="tag-photo"> 
+        {{#linkTo 'user' event.tag.taggee.user }}
+          {{tag.taggee.user.avatar}}
+        {{/linkTo}}
+    </div>
+  </div> 
+  <div class="bottom-inner-row">
+    <span class="tagger-name"> {{event.tag.tagger.user.screen_name}}</span>
+    <span class="taggee-name"> {{event.tag.taggee.user.screen_name}}</span>
+  </div> 
+</div>
+{{/if}}
+
+{{#if isJoin}}
+{{/if}}
+
+

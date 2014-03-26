@@ -10,17 +10,19 @@ var express = require("express");
 
 var app = express();
 
-app.use(express.bodyParser())
-   .use(express.methodOverride())
+// app.use(express.bodyParser())
+
+app.use(express.methodOverride())
    .use(app.router);
 
 var httpProxy = require('http-proxy');
 
 var apiProxy = httpProxy.createProxyServer();
 
-app.get("/api/*", function(req, res){ 
+app.all("/api/*", function(req, res){ 
  apiProxy.web(req, res, { target: 'http://127.0.0.1:3000' });
 });
+
 
 //static files
 app.get("/public/*", function(req, res){ 
@@ -32,7 +34,7 @@ app.post("/token", function(req, res){
   var fake_credentials = {
     sasha:    {id: 3, password: "s"},
     mike:     {id: 2, password: "m"},
-    chandler: {id: 792, password: "c"}
+    chandler: {id: 791, password: "c"}
   }
 
   var username = req.body["username"]

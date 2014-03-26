@@ -1,9 +1,21 @@
-<div class="profile-image">
-  <img class="large-avatar" {{bind-attr src=avatarUrl}}></img>
-</div>
-<div class="sub-header profile-header"> 
-  <h2 {{name}} </h2>
-  <div> {{description}} </div>
+{{#if errors}}
+  <div class="alert alert-danger"><h1>{{errors}}</h1></div>
+{{/if}}
+<div class="container-fluid profile-header"> 
+  <div class="row">
+   <div class="col-md-3">
+    <div class="profile-image">
+      <img class="large-avatar" {{bind-attr src=avatar_url}}></img>
+    </div>
+    <h2 {{name}} </h2>
+    <div> {{description}} </div>
+   </div>
+   <div class="col-md-9">
+      <div id="chart">
+      {{line-chart}}
+      </div>
+   </div>
+  </div>
 </div>
 <div class="container-fluid game-profile-body">
   <div class="row">
@@ -15,6 +27,9 @@
         </h3> 
       </div>
       <div class="block-body event-feed-body">
+      {{#each e in events}}
+        {{event-item event=e}}
+      {{/each}}
       </div>
     </div>
   </div>
@@ -23,11 +38,20 @@
       <div class="col-md-12 m-b-20"> 
         <div class="profile-block">
           <div class="block-header tag-header">
-            <h4 class="text-white m-t-50 m-b-30 m-r-20 text-center"> Tag a Human </h4> 
+            <h3 class="text-white m-t-50 m-b-30 m-r-20 text-center"> Tag a Human </h3> 
           </div>
           <div class="block-body tag-body">
-           <input class="form-control col-md-offset-1" placeholder="human code">
-           <div type="button" class="save-tag-btn btn btn-primary btn-lg">save tag</div>
+            <div class= "col-md-6">
+             {{ 
+                view Ember.TextField
+                type="text"
+                placeholder="Human Code"
+                valueBinding="code"
+             }} 
+            </div>
+           <div class= "col-md-6">
+              <div type="button" class="save-tag-btn btn btn-primary btn-lg " {{action "registerTag"}}>save tag</div>
+           </div>
           </div>
         </div>
       </div>
@@ -43,11 +67,11 @@
               <div class="player-item">
                 <div class="player-item-avatar">
                   {{#link-to 'user' player.user}}
-                    <img class="medium-avatar" {{bind-attr src=player.user.avatarUrl}}></img>
+                    <img class="medium-avatar" {{bind-attr src=player.user.avatar_url}}></img>
                   {{/link-to}}
                 </div>
                 <div class="player-item-name">
-                  {{player.user.screenName}}
+                  {{player.user.screen_name}}
                 </div>
               </div>
             {{/each}}

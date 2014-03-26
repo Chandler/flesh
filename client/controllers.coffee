@@ -30,3 +30,29 @@ App.UserEditController = Ember.ObjectController.extend
       
       # then transition to the current user
       #@transitionToRoute "user", user
+
+App.GameController = Ember.ObjectController.extend
+  errors: ''
+  code: ''
+
+  clearErrors: ->
+    @set 'errors', null
+
+  registerTag: ->
+    if @code != ''
+      @clearErrors()
+      currentPlayer = @get('session.user')
+      $.post("/api/tag/" + @code + "?player_id=" + currentPlayer.get('id'))
+      .done (xhr, status, error) =>
+        @set 'errors', "success!" 
+      .fail (xhr, status, error) =>
+        contentType = xhr.getResponseHeader('content-type')
+        if (contentType == "application.json")
+          @set 'errors', JSON.parse(xhr.responseText)
+        else
+          @set 'errors', JSON.stringify(xhr.responseText) 
+    else
+        @set 'errors', "human code empty"
+
+
+  
