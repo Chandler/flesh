@@ -10,7 +10,7 @@ var express = require("express");
 
 var app = express();
 
-// app.use(express.bodyParser())
+app.use(express.bodyParser())
 
 app.use(express.methodOverride())
    .use(app.router);
@@ -34,7 +34,7 @@ app.post("/token", function(req, res){
   var fake_credentials = {
     sasha:    {id: 3, password: "s"},
     mike:     {id: 2, password: "m"},
-    chandler: {id: 791, password: "c"}
+    chandler: {id: 1, password: "c"}
   }
 
   var username = req.body["username"]
