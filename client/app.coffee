@@ -60,7 +60,7 @@ App.Router.map ->
   @resource 'users', ->
     @resource 'user', path: "/:user_id", ->
       @route 'edit'
-    @route 'create'
+    @route 'new'
   @resource 'games', ->
     @resource 'game', path: "/:game_id"
 
