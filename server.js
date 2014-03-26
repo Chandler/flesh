@@ -10,7 +10,7 @@ var express = require("express");
 
 var app = express();
 
-// app.use(express.bodyParser())
+app.use(express.bodyParser())
 
 app.use(express.methodOverride())
    .use(app.router);
@@ -30,11 +30,11 @@ app.get("/public/*", function(req, res){
 });
 
 //a very fake authentication endpoint
-app.post("/token", function(req, res){
+app.post("/api/user/login", function(req, res){
   var fake_credentials = {
     sasha:    {id: 3, password: "s"},
     mike:     {id: 2, password: "m"},
-    chandler: {id: 791, password: "c"}
+    chandler: {id: 1, password: "c"}
   }
 
   var username = req.body["username"]
@@ -44,9 +44,8 @@ app.post("/token", function(req, res){
   
   if(user && (user["password"] == password)){
     res.json({
-      access_token: require('crypto').createHash('md5').update(username).digest("hex"),
-      token_type: "bearer",
-      user_id: user["id"]
+      authentication_token: require('crypto').createHash('md5').update(username).digest("hex"),
+      id: user["id"]
     })
   } else {
     res.status(401).json({ error: "incorrect password" })

@@ -12,6 +12,8 @@
     "grunt-shell": "*",
     "grunt-contrib-clean": "*",
     "grunt-ember-handlebars": "*",
-    "grunt-bower": "*"
+    "grunt-bower": "*",
+    "http-proxy": "*",
+    "express": "*"
   }
 }
