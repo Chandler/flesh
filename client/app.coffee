@@ -91,5 +91,6 @@ App.Router.map ->
   @resource 'games', ->
     @resource 'game', path: "/:game_id"
   @route 'pwreset'
+
 Ember.TextField.reopen
   classNames: ['form-control']
