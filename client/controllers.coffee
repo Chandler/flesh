@@ -13,6 +13,7 @@ App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMi
 App.UsersCreateController = Ember.ObjectController.extend
   error: ''
   success: ''
+  
   actions:
     save: ->
       user = @get('model')
@@ -23,9 +24,15 @@ App.UsersCreateController = Ember.ObjectController.extend
       ,
       #failure
       (xhr) => 
+        #LOL
         contentType = xhr.getResponseHeader('content-type')
         if (contentType.indexOf("application/json") != -1)
-          @set 'error', xhr.responseJSON.error
+          errorText = xhr.responseJSON.error
+          if (errorText.indexOf("Bad Request") != -1)
+            message = "Something went wrong, did you fill in all the fields?"
+          else
+            message = errorText
+          @set 'error', errorText
         else
           @set 'error', "Something went wrong, did you fill in all the fields?" #JSON.stringify(xhr.responseText) 
 
@@ -45,7 +52,6 @@ App.UserEditController = Ember.ObjectController.extend
       ,
       #failure
       (xhr) =>
-        debugger
         contentType = xhr.getResponseHeader('content-type')
         if (contentType.indexOf("application/json") != -1) #sigh, javascript
           @set 'error', xhr.responseJSON.error
@@ -88,6 +94,7 @@ App.PwresetController = Ember.ObjectController.extend
 
 App.GameController = Ember.ObjectController.extend
   error: ''
+  success: ''
   code: ''
   gameStarted: false
 
@@ -106,7 +113,21 @@ App.GameController = Ember.ObjectController.extend
     (user) => 
       player.set('user', user)
       player.set('game', @get('model'))
-      player.save()
+      player.save().then \
+      #success
+      (player) => 
+        @get('model.players').addObject(player);
+        #@get('model').reload()
+        @set 'success', 'You joined the game! Visit your profile to retrieve your human code.'
+      ,
+      #failure
+      (xhr) => 
+        contentType = xhr.getResponseHeader('content-type')
+        if (contentType.indexOf("application/json") != -1)
+          @set 'error', xhr.responseJSON.error
+        else
+          @set 'error', "Something went wrong, did you fill in all the fields?" #JSON.stringify(xhr.responseText) 
+
 
   registerTag: ->
     if @code != ''

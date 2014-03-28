@@ -28,7 +28,7 @@ App.Player = DS.Model.extend
   status:             DS.attr       'string' #human/zombie/starved
   human_code:         DS.attr       'string'
   game:               DS.belongsTo  'game'
-  user:               DS.belongsTo  'user' #embedded:'always' ?
+  user:               DS.belongsTo  'user'
 
 App.Event = DS.Model.extend
   event_type:         DS.attr       'string' 
@@ -36,7 +36,7 @@ App.Event = DS.Model.extend
   game:               DS.belongsTo  'game'
   organization:       DS.belongsTo  'organization'
   player:             DS.belongsTo  'player'
-  tag:                DS.belongsTo  'tag' #embedded:'always'?
+  tag:                DS.belongsTo  'tag' 
 
 App.Tag = DS.Model.extend
   tagger:  DS.belongsTo 'player'
