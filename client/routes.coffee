@@ -15,5 +15,9 @@ App.GameRoute = Ember.Route.extend
     #this has to come first
     controller.set('content', model)
 
+    # players = @get('model.players')
+
+    # controller.set('players', players)
+
     # events = @store.find('event')
     # controller.set('events', events)

@@ -16,7 +16,7 @@ App.Game = DS.Model.extend
   running_start_time: DS.attr      'string'
   players:            DS.hasMany   'player', { async: true }
   organization:       DS.belongsTo 'organization'
-
+  
 App.Organization = DS.Model.extend
   name:               DS.attr      'string'
   slug:               DS.attr      'string'

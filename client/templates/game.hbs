@@ -1,5 +1,5 @@
-{{#if errors}}
-  <div class="alert alert-danger"><h1>{{errors}}</h1></div>
+{{#if error}}
+  <div class="alert alert-danger"><h1>{{error}}</h1></div>
 {{/if}}
 <div class="container-fluid profile-header"> 
   <div class="row">
@@ -9,9 +9,17 @@
     </div>
     <h2 {{name}} </h2>
     <div> {{description}} </div>
-    <div class="block-body join-game">
-      <div class="btn btn-success btn-lg" {{action "joinGame"}}> Join game! </div>
-    </div>  
+      <div class="block-body join-game">
+        {{#if session.isAuthenticated}}
+          {{#if loggedInPlayer}}
+            <div class="btn disabled btn-success btn-lg"> You're in this game </div>
+          {{else}}
+            <div class="btn btn-success btn-lg" {{action "joinGame"}}> Join game! </div>
+          {{/if}}
+        {{else}}
+          {{#link-to 'login' classNames="btn btn-large btn-success"}} Sign in to join a game {{/link-to}}
+        {{/if}}
+      </div>
    </div>
   {{#if gameStarted}}
    <div class="col-md-9">

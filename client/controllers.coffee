@@ -1,7 +1,3 @@
-BaseMixin = Ember.Mixin.create
-  errors: ''
-  success: ''
-  
 App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMixin,
   #set the custom authenticator
   authenticator: "app:authenticators:custom"
@@ -13,11 +9,12 @@ App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMi
       @set "errors", message
 )
 
-App.UsersCreateController = Ember.ObjectController.extend(BaseMixin,
+App.UsersCreateController = Ember.ObjectController.extend
+  error: ''
+  success: ''
   actions:
     save: ->
       user = @get('model')
-      self = this
       user.save().then \
       #success
       () => 
@@ -27,11 +24,14 @@ App.UsersCreateController = Ember.ObjectController.extend(BaseMixin,
       (xhr) => 
         contentType = xhr.getResponseHeader('content-type')
         if (contentType.indexOf("application/json") != -1)
-          @set 'errors', JSON.parse(xhr.responseText)
+          @set 'error', xhr.responseJSON.error
         else
-          @set 'errors', "Something went wrong, did you fill in all the fields?" #JSON.stringify(xhr.responseText) 
-)
+          @set 'error', "Something went wrong, did you fill in all the fields?" #JSON.stringify(xhr.responseText) 
+
 App.UserEditController = Ember.ObjectController.extend
+  error: ''
+  success: ''
+
   actions:
     save: ->
       user = @get("model")
@@ -43,25 +43,26 @@ App.UserEditController = Ember.ObjectController.extend
         @set 'success', 'profile updated'
       ,
       #failure
-      (xhr) -> 
+      (xhr) =>
+        debugger
         contentType = xhr.getResponseHeader('content-type')
-        if (contentType.indexOf("application/json") != -1)
-          self.set 'errors', JSON.parse(xhr.responseText)
+        if (contentType.indexOf("application/json") != -1) #sigh, javascript
+          @set 'error', xhr.responseJSON.error
         else
-          self.set 'errors', "Something went wrong"
+          @set 'error', "Something went wrong"
 
       
       # then transition to the current user
       #@transitionToRoute "user", user
 
 App.PwresetController = Ember.ObjectController.extend
-  errors: ''
+  error: ''
   success: ''
   email: ''
 
   clearAlerts: ->
     @set 'success', null
-    @set 'errors', null
+    @set 'error', null
 
   send: ->
     if @email != ''
@@ -77,21 +78,26 @@ App.PwresetController = Ember.ObjectController.extend
         @set 'success', "Your reset link was emailed to " + @email 
       .fail (xhr, status, error) =>
         contentType = xhr.getResponseHeader('content-type')
-        debugger
         if (contentType.indexOf("application/json") != -1) #sigh, javascript
-          @set 'errors', xhr.responseJSON.error
+          @set 'error', xhr.responseJSON.error
         else
-          @set 'errors', JSON.stringify(xhr.responseText) 
+          @set 'error', JSON.stringify(xhr.responseText) 
     else
-        @set 'errors', "You didn't enter an email address"
+        @set 'error', "You didn't enter an email address"
 
 App.GameController = Ember.ObjectController.extend
-  errors: ''
+  error: ''
   code: ''
   gameStarted: false
 
+  loggedInPlayer: (->
+    user_id = @get('session.user_id')
+    @get('players')
+    .filterBy('user.id', user_id)
+  ).property('players.@each.user.id')
+
   clearErrors: ->
-    @set 'errors', null
+    @set 'error', null
 
   joinGame: ->    
     player = @store.createRecord('player')
@@ -107,14 +113,14 @@ App.GameController = Ember.ObjectController.extend
       currentPlayer = @get('session.user')
       $.post("/api/tag/" + @code + "?player_id=" + currentPlayer.get('id'))
       .done (xhr, status, error) =>
-        @set 'errors', "success!" 
+        @set 'error', "success!" 
       .fail (xhr, status, error) =>
         contentType = xhr.getResponseHeader('content-type')
         if (contentType == "application.json")
-          @set 'errors', JSON.parse(xhr.responseText)
+          @set 'error', JSON.parse(xhr.responseText)
         else
-          @set 'errors', JSON.stringify(xhr.responseText) 
+          @set 'error', JSON.stringify(xhr.responseText) 
     else
-        @set 'errors', "human code empty"
+        @set 'error', "human code empty"
 
 
