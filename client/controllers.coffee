@@ -1,4 +1,5 @@
 App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMixin,
+  error: ''
   #set the custom authenticator
   authenticator: "app:authenticators:custom"
   
@@ -6,7 +7,7 @@ App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMi
     # display an error when authentication fails
     sessionAuthenticationFailed: (error) ->
       message = JSON.parse(error).error
-      @set "errors", message
+      @set "error", message
 )
 
 App.UsersCreateController = Ember.ObjectController.extend

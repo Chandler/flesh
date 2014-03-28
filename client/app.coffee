@@ -51,6 +51,7 @@ App.CustomAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend(
     )
 )
 
+
 App.CustomAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend(authorize: (jqXHR, requestOptions) ->
   id = @get("session.user_id")
   authentication_token = @get("session.access_token")

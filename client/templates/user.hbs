@@ -19,7 +19,9 @@
       </div>
       <div class="panel-body">
         <h1>
-          <span class="label label-success">Human Code: {{player.human_code}}</span>
+          {{#if player.human_code}}
+            <span class="label label-success">Human Code: {{player.human_code}}</span>
+          {{/if}}
           <span class="label label-warning">Status: {{player.status}}</span>
         </h1>
       </div>
