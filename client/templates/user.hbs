@@ -1,8 +1,37 @@
-<div class="profile-image">
-  <img class="large-avatar" {{bind-attr src=avatar_url}}></img>
-</div>
+
 <div class="sub-header profile-header"> 
-  <h2 class="profile-screen-name"> {{screen_name}} </h2>
-  <h4 class="profile-screen-name"> ({{first_name}} {{last_name}}) </h4>
+  <div class="row">
+   <div class="col-md-3">
+    <div class="profile-image">
+      <img class="large-avatar" {{bind-attr src=avatar_url}}></img>
+    </div>
+    <h2 class="profile-screen-name"> {{screen_name}} </h2>
+    <h4 class="profile-screen-name"> ({{first_name}} {{last_name}}) </h4>
+   </div>
+   <div class="col-md-8">
+    {{#each player in players}}
+    <div class="bs-callout discovery-callout">
+      <div class="container-fluid"> 
+        <div class="row">
+          <div class="col-md-12">
+            <div class="game-list-name">
+              {{#link-to 'game' 1 }} Game: University of Idaho Spring 2013 {{/link-to}}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+           <div class=""> Human Code: {{player.human_code}} </div>
+          </div>
+          <div class="col-md-6">
+            <div class=""> Status: {{ player.status}} </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+   </div>
+  </div>
 </div>
+
 {{outlet}}

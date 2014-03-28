@@ -9,17 +9,25 @@
     </div>
     <h2 {{name}} </h2>
     <div> {{description}} </div>
+    <div class="block-body join-game">
+      <div class="btn btn-success btn-lg" {{action "joinGame"}}> Join game! </div>
+    </div>  
    </div>
+  {{#if gameStarted}}
    <div class="col-md-9">
       <div id="chart">
       {{line-chart}}
       </div>
    </div>
+  {{/if}}
   </div>
 </div>
 <div class="container-fluid game-profile-body">
-  <div class="row">
-   <div class="col-md-7">
+  <div class="row"> 
+  <div class="col-md-7">
+    <div class="profile-block">
+ 
+    </div>
     <div class="profile-block">
       <div class="block-header event-feed-header">
         <h3 class="text-white m-t-50 m-b-30 m-r-20 text-center">
@@ -27,14 +35,13 @@
         </h3> 
       </div>
       <div class="block-body event-feed-body">
-      {{#each e in events}}
-        {{event-item event=e}}
-      {{/each}}
+          No events yet
       </div>
     </div>
   </div>
   <div class="col-md-5">
     <div class="row">
+    {{#if gameStarted}}
       <div class="col-md-12 m-b-20"> 
         <div class="profile-block">
           <div class="block-header tag-header">
@@ -55,12 +62,13 @@
           </div>
         </div>
       </div>
+      {{/if}}
     </div>
     <div class="row">
       <div class="col-md-12 m-b-20"> 
         <div class="profile-block">
           <div class="block-header player-list-header">
-            <h3 class="text-white m-t-50 m-b-30 m-r-20 text-center"> Player List </h3> 
+            <h3 class="text-white m-t-50 m-b-30 m-r-20 text-center"> {{players.length}} Players </h3> 
           </div>
           <div class="block-body player-list-body">
             {{#each player in players}}

@@ -1,3 +1,14 @@
+.join-game{margin-top:20px}
+.game-list-name{font-weight:200px;font-size:35px;margin-bottom:30px;color:#0a98d3}
+.game-info-text{font-size:30;font-weight:bold}
+.bs-callout{padding:15px 30px 15px 15px;border-left:5px solid #eee}
+.bs-callout h4{margin-top:0}
+.bs-callout p:last-child{margin-bottom:0}
+.bs-callout code,.bs-callout .highlight{background-color:#fff}
+.bs-callout-danger{background-color:#fcf2f2;border-color:#dfb5b4}
+.discovery-callout{background-color:#dae9f6;border-color:#0a98d3}
+.logo{text-shadow:none;font-family:"sansita one";font-weight:bold}
+.navbar-brand{margin-left:20px;font-size:30px;line-height:40px}
 body{font:10px sans-serif}
 .axis path,.axis line{fill:none;stroke:#000;shape-rendering:crispEdge}
 .x.axis path{display:none}
@@ -17,7 +28,7 @@ body{font:10px sans-serif}
 .profile-block .tag-header{background-color:#36b838}
 .profile-block .player-list-header{background-color:rgba(216,36,50,0.74)}
 .profile-block .block-body{background-color:#f5f2f2}
-.profile-block .event-feed-body{height:100px}
+.profile-block .event-feed-body{height:100px;text-align:center;vertical-align:middle;line-height:100px;font-family:"jaf-bernino-sans","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;letter-spacing:-.02em;font-weight:300;font-style:normal;font-size:32px;margin:0 auto}
 .profile-block .player-list-body{height:auto}
 .profile-block .tag-body{height:100px;padding-top:17px;}
 .profile-block .tag-body .form-control{float:left;display:block;width:225px;height:66px;padding:11px 11px;font-size:28px;line-height:1.42857143;color:#555;background-color:#fff;background-image:none;border:1px solid #c0b6b6}

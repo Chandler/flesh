@@ -1,7 +1,7 @@
-{{#if errorMessage}}
+{{#if errors}}
   <div class="alert alert-danger">
     <p>
-      <strong>Login failed:</strong> <code>{{errorMessage}}</code>
+      <strong>Login failed:</strong> <code>{{errors}}</code>
     </p>
   </div>
 {{/if}}
@@ -26,6 +26,10 @@
             <button type="submit" class="btn btn-success">Sign in</button>
           </div>
         </div>
+          <div class="col-sm-offset-2 col-sm-10">
+            {{#link-to 'pwreset'}} Forgot your password? {{/link-to}}
+          </div>
+
       </form>
     </div>
   </div>
