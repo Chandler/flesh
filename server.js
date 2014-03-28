@@ -56,7 +56,7 @@ app.get("/public/*", function(req, res){
 
 //if it's anything else serve the application
 app.get("/*", function(request, res){ 
-  res.sendfile(__dirname+"/index.html");
+  res.sendfile(__dirname+"/public/index.html");
 });
 
 
