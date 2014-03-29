@@ -42,8 +42,13 @@ var apiProxy = httpProxy.createProxyServer();
 //   }
 // });
 
+// app.all("/api/*", function(req, res){ 
+//  apiProxy.web(req, res, { target: 'http://127.0.0.1:3000' });
+// });
+
+
 app.all("/api/*", function(req, res){ 
- apiProxy.web(req, res, { target: 'http://127.0.0.1:3000' });
+ apiProxy.web(req, res, { target: 'https://flesh.io' });
 });
 
 

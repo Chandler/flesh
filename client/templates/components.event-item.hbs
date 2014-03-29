@@ -35,11 +35,9 @@
     <div class="join-game-event-date"> {{event.created_at}} </div>
     </div>
     <div class= "col-md-10 join-event-text">
-      <span class="join-event-text-name"> 
         {{#link-to 'user' event.player.user}}
           {{event.player.user.screen_name}}
-        {{/link-to}}
-      </span> joined the game
+        {{/link-to}} joined the game
     </div>
   </div>
 {{/if}}
