@@ -25,7 +25,19 @@ App = Ember.Application.create
   rootElement: "#app"
   LOG_TRANSITIONS: true
 
-#App.CustomAuthenticator = Ember.SimpleAuth.Authenticators.Base.extend(authenticate: (credentials) ->
+# Customize login requests and response handling
+# sign in looks like: 
+# { 
+#   user: {
+#     email: 'email'
+#     password: 'password'
+#   }
+# }
+# response looks like: 
+# {
+#   access_token: '234qerq4w5'
+#   user_id: '3'
+# }
 App.CustomAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend(
   refreshAccessTokens: false, #don't do this because we are not actually using Oauth2
   authenticate: (credentials) ->
@@ -51,11 +63,12 @@ App.CustomAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend(
     )
 )
 
-
+# Implement HTTP Basic Auth 
+# Because ember-simple-auth really only
+# comes with Oauth2 out of the box.
 App.CustomAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend(authorize: (jqXHR, requestOptions) ->
   id = @get("session.user_id")
   authentication_token = @get("session.access_token")
-  
   if id? and authentication_token?
     basic_auth_unencoded =  id + ":" + authentication_token
     jqXHR.setRequestHeader("Authorization", "Basic " + window.btoa basic_auth_unencoded)
@@ -63,11 +76,24 @@ App.CustomAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend(authorize: (jqXH
 
 App.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.ApplicationRouteMixin)
 
-# App.ApplicationAdapter = DS.FixtureAdapter
+# Use Fixtures data instead of the API
+#App.ApplicationAdapter = DS.FixtureAdapter
 
+# Make all models request data through /api/
 App.ApplicationAdapter = DS.RESTAdapter.extend
   namespace: 'api'
 
+App.RawTransform = DS.Transform.extend(
+  deserialize: (value) ->
+    moment(value).zone(7).format('MMM Do ha')
+
+  serialize: (deserialized) ->
+    null
+)
+
+# API returns _id and _ids, this converts
+# those to the default ember json format
+# player => player_id, players -> player_ids
 App.ApplicationSerializer = DS.RESTSerializer.extend
   keyForRelationship: (key, relationship) ->
     if relationship == "hasMany"
@@ -92,5 +118,8 @@ App.Router.map ->
     @resource 'game', path: "/:game_id"
   @route 'pwreset'
 
+
+# Add the form-control class to all text fields for styling
 Ember.TextField.reopen
   classNames: ['form-control']
+

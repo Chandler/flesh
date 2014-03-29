@@ -17,6 +17,7 @@ module.exports = function(grunt) {
       basic: {
         src: [
             'public/js/bower/jquery.js',
+            'public/js/bower/moment.js',
             'public/js/bower/underscore.js',
             'public/js/bower/handlebars.js',
             'public/js/lib/ember.js',

@@ -4,3 +4,4 @@ node_modules
 public/js/*
 !public/js/lib
 public/js/bower
+public/css/application.css

@@ -25,23 +25,24 @@ App.Organization = DS.Model.extend
   games:              DS.hasMany   'game'
 
 App.Player = DS.Model.extend
-  status:             DS.attr       'string' #human/zombie/starved
+  status:             DS.attr       'string'
   human_code:         DS.attr       'string'
   game:               DS.belongsTo  'game'
   user:               DS.belongsTo  'user'
 
 App.Event = DS.Model.extend
   event_type:         DS.attr       'string' 
-  user:               DS.attr       'user'
+  user:               DS.belongsTo  'user'
   game:               DS.belongsTo  'game'
   organization:       DS.belongsTo  'organization'
   player:             DS.belongsTo  'player'
   tag:                DS.belongsTo  'tag' 
+  created_at:         DS.attr       'raw'
 
 App.Tag = DS.Model.extend
-  tagger:  DS.belongsTo 'player'
-  taggee:  DS.belongsTo 'player'
-  event:   DS.belongsTo 'event'
+  tagger:     DS.belongsTo 'player'
+  taggee:     DS.belongsTo 'player'
+  event:      DS.belongsTo 'event'
 
 App.Event.FIXTURES = [
   {

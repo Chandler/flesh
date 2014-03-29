@@ -2,8 +2,8 @@ App.EventItemComponent = Ember.Component.extend
   #setup some handlebars flags
   setup: (->
     @setProperties
-      isTag:  @get('event.event_type') is "tag"
-      isJoin: @get('event.event_type') is "join"
+      isTag:      @get('event.event_type')  is "tag"
+      isJoinGame: @get('event.event_type')  is "join_game"
   ).on("init")
   
 
