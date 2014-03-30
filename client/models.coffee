@@ -43,6 +43,7 @@ App.Tag = DS.Model.extend
   tagger:     DS.belongsTo 'player'
   taggee:     DS.belongsTo 'player'
   event:      DS.belongsTo 'event'
+  claimed:    DS.attr      'raw'
 
 App.Event.FIXTURES = [
   {

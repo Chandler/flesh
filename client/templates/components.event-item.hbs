@@ -1,37 +1,31 @@
 {{#if isTag}}
-<div class="event-feed-row tag-event">
-  <div class="top-inner-row">
-    <div class="tag-time">
-    {{event.tag.claimed}}
+  <div class="row tag-event">
+    <div class= "col-md-2">
+      <div class="">
+        <img class="small-avatar item" {{bind-attr src=event.tag.tagger.user.avatar_url}}></img>
+        <img class="small-avatar item" {{bind-attr src=event.tag.taggee.user.avatar_url}}></img>
+      </div>
+      <div class="tag-event-date"> {{event.tag.claimed}} </div>
     </div>
-  </div> 
-  <div class="middle-inner-row">
-    <div class="tag-photo"> 
-        {{#linkTo 'user' event.tag.tagger.user}}
-          {{tag.taggee.user.avatar}}
-        {{/linkTo}}
+
+    <div class="col-md-10">
+      <div class="tag-event-text">
+        {{#link-to 'user' event.tag.tagger.user}}
+          {{event.tag.tagger.user.screen_name}}
+        {{/link-to}}
+        tagged
+        {{#link-to 'user' event.tag.taggee.user}}
+          {{event.tag.taggee.user.screen_name}}
+        {{/link-to}}
+      </div>
     </div>
-    <div class="tag-action">
-      <div class="tag-text">tagged</div>
-      <div class="tag-underline"></div>
-    </div>
-      <div class="tag-photo"> 
-        {{#linkTo 'user' event.tag.taggee.user }}
-          {{tag.taggee.user.avatar}}
-        {{/linkTo}}
-    </div>
-  </div> 
-  <div class="bottom-inner-row">
-    <span class="tagger-name"> {{event.tag.tagger.user.screen_name}}</span>
-    <span class="taggee-name"> {{event.tag.taggee.user.screen_name}}</span>
-  </div> 
-</div>
+  </div>
 {{/if}}
 
 {{#if isJoinGame}}
   <div class="row join-game-event">
     <div class= "col-md-2 join-event-avatar">
-        <img class="medium-avatar" {{bind-attr src=event.player.user.avatar_url}}></img>
+        <img class="small-avatar" {{bind-attr src=event.player.user.avatar_url}}></img>
     <div class="join-game-event-date"> {{event.created_at}} </div>
     </div>
     <div class= "col-md-10 join-event-text">
