@@ -104,7 +104,8 @@ App.GameController = Ember.ObjectController.extend
     .filterBy('user.id', user_id)
   ).property('players.@each.user.id')
 
-  clearErrors: ->
+  clearAlerts: ->
+    @set 'success', null
     @set 'error', null
 
   joinGame: ->    
@@ -128,18 +129,22 @@ App.GameController = Ember.ObjectController.extend
         else
           @set 'error', "Something went wrong, did you fill in all the fields?" #JSON.stringify(xhr.responseText) 
 
-
   registerTag: ->
     if @code != ''
-      @clearErrors()
-      currentPlayer = @get('session.user')
-      $.post("/api/tag/" + @code + "?player_id=" + currentPlayer.get('id'))
+      @clearAlerts()
+      $.ajax(
+        url: "/api/tags"
+        type: "POST"
+        data:
+          tag:
+            human_code: @code
+      )
       .done (xhr, status, error) =>
-        @set 'error', "success!" 
+        @set 'success', "success!" 
       .fail (xhr, status, error) =>
         contentType = xhr.getResponseHeader('content-type')
-        if (contentType == "application.json")
-          @set 'error', JSON.parse(xhr.responseText)
+        if (contentType.indexOf("application/json") != -1)
+          @set 'error', xhr.responseJSON.error
         else
           @set 'error', JSON.stringify(xhr.responseText) 
     else
