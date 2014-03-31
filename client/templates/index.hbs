@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="jumbotron">
+    <h3>Welcome to <span class="logo">flesh</span> </h3>
+    <p> You're probably here for the 
+    {{#link-to 'game' 1 }} University of Idaho Spring 2014 Game {{/link-to}} 
+    </p>
+    {{#if session.isAuthenticated}}
+    {{else}}
+      <p> 
+        To get started 
+        {{#link-to 'login'}} Login {{/link-to}} or
+        {{#link-to 'users.create'}} Create a new account {{/link-to}}
+      </p>
+    {{/if}}
+  </div>
+</div>
