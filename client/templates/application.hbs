@@ -13,8 +13,8 @@
 </div>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
-      <ul class="nav nav-sidebar">
+    <div id= "sidebar" class="col-sm-3 col-md-2 sidebar">
+      <ul class="sidebar-menu nav nav-sidebar">
         {{#if session.isAuthenticated}}
           <li>{{#link-to 'user.edit' session.user classNames="fa fa-gear"}} Settings {{/link-to}}</li>
           <li><a {{ action 'invalidateSession' }}>Logout</a></li>
