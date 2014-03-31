@@ -21,6 +21,7 @@ App.Organization = DS.Model.extend
   name:               DS.attr      'string'
   slug:               DS.attr      'string'
   description:        DS.attr      'string'
+  location:           DS.attr      'string'
   users:              DS.hasMany   'user'
   games:              DS.hasMany   'game'
 

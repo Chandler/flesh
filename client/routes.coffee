@@ -15,5 +15,11 @@ App.GameRoute = Ember.Route.extend
     #this has to come first
     controller.set('content', model)
 
+    $.get("/api/games/" + model.id + "/stats")
+    .done (xhr, status, error) =>
+      controller.set('zombie_count', xhr.zombie)
+      controller.set('human_count', xhr.human)
+      controller.set('starved_count', xhr.starved)
+
     events = @store.find('event', { resource: "game", id: model.get('id') })
     controller.set('events', events)

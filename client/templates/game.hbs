@@ -4,51 +4,61 @@
 {{#if success}}
   <div class="alert alert-success"><h1>{{success}}</h1></div>
 {{/if}}
-<div class="container-fluid profile-header"> 
-  <div class="row">
-   <div class="col-md-3">
-    <div class="profile-image large-avatar">
-      <img class ="large-avatar" src="https://i.imgur.com/gXZP1GKm.jpg"> </img>
-    </div>
-    <h2 {{name}} </h2>
-    <div> {{description}} </div>
-      <div class="block-body join-game">
-        {{#if session.isAuthenticated}}
-          {{#if loggedInPlayer}}
-            <div class="btn disabled btn-success btn-lg"> You're in this game </div>
-          {{else}}
-            <div class="btn btn-success btn-lg" {{action "joinGame"}}> Join game! </div>
-          {{/if}}
-        {{else}}
-          {{#link-to 'login' classNames="btn btn-large btn-success"}} Sign in to join a game {{/link-to}}
-        {{/if}}
-      </div>
-   </div>
-  {{#if gameStarted}}
-   <div class="col-md-9">
-      <div id="chart">
-      {{line-chart}}
-      </div>
-   </div>
-  {{/if}}
-  </div>
-</div>
+<div class="col-lg-12">
+          <div class="row content-panel">
+            <div class="col-md-6 profile-text mt mb centered">
+              <div class="right-divider hidden-sm hidden-xs">
+                <h4>{{human_count}}</h4>
+                <h6>HUMANS</h6>
+                <h4>{{zombie_count}}</h4>
+                <h6>ZOMBIES</h6>
+                <h4>{{starved_count}}</h4>
+                <h6>STARVED</h6>
+              </div>
+            </div><!-- --/col-md-4 ---->
+            
+            <div class="col-md-3 profile-text">
+              <h3>{{name}}</h3>
+              <h6>{{organization.location}}</h6>
+              <p>{{description}}</p>
+              <br>
+              {{#if session.isAuthenticated}}
+                {{#if loggedInPlayer}}
+                  <div class="btn disabled btn-theme02 btn-lg"><i class="fa fa-check"></i> You're in this game </div>
+                {{else}}
+                  <div class="btn btn-theme02 btn-lg" {{action "joinGame"}}> <i class="fa fa-check"></i>Join game! </div>
+                {{/if}}
+              {{else}}
+                {{#link-to 'login' classNames="btn btn-large btn-theme02"}} Sign in to join a game {{/link-to}}
+              {{/if}}
+            </div>
+            <div class="col-md-3 centered">
+              <div class="profile-pic">
+                <p><img src="https://i.imgur.com/gXZP1GKm.jpg" class="img-circle"></p>
+              </div>
+            </div>
+          </div>   
+        </div>
+
 <div class="container-fluid game-profile-body">
   <div class="row"> 
   <div class="col-md-7">
     <div class="profile-block">
- 
     </div>
     <div class="profile-block">
       <div class="block-header event-feed-header">
-        <h3 class="text-white m-t-50 m-b-30 m-r-20 text-center">
-         Event Feed
-        </h3> 
+        <span class="text-white m-t-50 m-b-30 m-r-20 text-center">
+         EVENT FEED
+        </span> 
       </div>
       <div class="block-body event-feed-body">
-         {{#each event in events}}
-           {{event-item event=event}}
-         {{/each}} 
+           <div class="chat-room">
+            <aside class="mid-side">
+              {{#each e in events}}
+                {{event-item event=e}}
+              {{/each}} 
+            </aside>
+        </div>
       </div>
     </div>
   </div>
@@ -57,7 +67,7 @@
       <div class="col-md-12 m-b-20"> 
         <div class="profile-block">
           <div class="block-header tag-header">
-            <h3 class="text-white m-t-50 m-b-30 m-r-20 text-center"> Tag a Human </h3> 
+            <span class="text-white m-t-50 m-b-30 m-r-20 text-center"> Tag a Human  </span>
           </div>
           <div class="block-body tag-body">
             <div class= "col-md-6">
@@ -79,7 +89,7 @@
       <div class="col-md-12 m-b-20"> 
         <div class="profile-block">
           <div class="block-header player-list-header">
-            <h3 class="text-white m-t-50 m-b-30 m-r-20 text-center"> {{players.length}} Players </h3> 
+            <span class="text-white m-t-50 m-b-30 m-r-20 text-center"> {{players.length}} Players </span> 
           </div>
           <div class="block-body player-list-body">
             {{#each player in players}}

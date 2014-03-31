@@ -15,8 +15,8 @@ App.LineChartComponent = Ember.Component.extend
       bottom: 30
       left: 50
 
-    width = 700 - margin.left - margin.right
-    height = 300 - margin.top - margin.bottom
+    width = 400 - margin.left - margin.right
+    height = 200 - margin.top - margin.bottom
     parseDate = d3.time.format("%Y%m%d").parse
     x = d3.time.scale().range([
       0
@@ -34,7 +34,7 @@ App.LineChartComponent = Ember.Component.extend
     ).y((d) ->
       y d.temperature
     )
-    svg = d3.select("#chart").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    svg = d3.select("#line-chart").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     d3.csv "/public/data.csv", (error, data) ->
       color.domain d3.keys(data[0]).filter((key) ->
         key isnt "date"

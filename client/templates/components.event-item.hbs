@@ -1,4 +1,22 @@
 {{#if isTag}}
+<div class="group-rom">
+  <div class="first-part">
+    <img class="small-avatar item" {{bind-attr src=event.tag.tagger.user.avatar_url}}></img>
+    <img class="small-avatar item" {{bind-attr src=event.tag.taggee.user.avatar_url}}></img>
+  </div>
+  <div class="second-part">
+    {{#link-to 'user' event.tag.tagger.user}}
+      {{event.tag.tagger.user.screen_name}}
+    {{/link-to}}
+    tagged
+    {{#link-to 'user' event.tag.taggee.user}}
+      {{event.tag.taggee.user.screen_name}}
+    {{/link-to}}
+  </div>
+  <div class="third-part">{{event.tag.claimed}}</div>
+</div>
+{{/if}}
+{{#if isTag1}}
   <div class="row tag-event">
     <div class= "col-md-2">
       <div class="">
@@ -23,17 +41,17 @@
 {{/if}}
 
 {{#if isJoinGame}}
-  <div class="row join-game-event">
-    <div class= "col-md-2 join-event-avatar">
-        <img class="small-avatar" {{bind-attr src=event.player.user.avatar_url}}></img>
-    <div class="join-game-event-date"> {{event.created_at}} </div>
-    </div>
-    <div class= "col-md-10 join-event-text">
-        {{#link-to 'user' event.player.user}}
-          {{event.player.user.screen_name}}
-        {{/link-to}} joined the game
-    </div>
+<div class="group-rom">
+  <div class="first-part">
+         <img class="small-avatar" {{bind-attr src=event.player.user.avatar_url}}></img>
   </div>
+  <div class="second-part">
+    {{#link-to 'user' event.player.user}}
+      {{event.player.user.screen_name}}
+    {{/link-to}} joined the game
+  </div>
+  <div class="third-part">{{event.created_at}}</div>
+</div>
 {{/if}}
 
 
