@@ -101,7 +101,7 @@ App.GameController = Ember.ObjectController.extend
   loggedInPlayer: (->
     user_id = @get('session.user_id')
     @get('players')
-    .filterBy('user.id', user_id)
+    .filterBy('user.id', user_id)[0]
   ).property('players.@each.user.id')
 
   clearAlerts: ->
