@@ -7,16 +7,28 @@ App.User = DS.Model.extend
   avatar_url:          DS.attr      'string'
   password:            DS.attr      'string'
   players:             DS.hasMany   'player', { async: true }
+  # currentGames: (->
+  #   players      = @get('players')
+  #   games = map(())
+  #   # _.filter(players, (player) -> player.game.isRunning())
+  # ).property("game")
 
 App.Game = DS.Model.extend
   name:               DS.attr      'string'
   slug:               DS.attr      'string'
   avatar_url:         DS.attr      'string'
   description:        DS.attr      'string'
-  running_start_time: DS.attr      'string'
+  game_start:         DS.attr      'string'
+  game_end:           DS.attr      'string'
   players:            DS.hasMany   'player', { async: true }
   organization:       DS.belongsTo 'organization'
-  
+  isRunning: (->
+    start = moment(@get('game_start'))
+    end   = moment(@get('game_end'))
+    now   = moment()
+    (now > start && now < end)
+  ).property('game_start', 'game_end')
+
 App.Organization = DS.Model.extend
   name:               DS.attr      'string'
   slug:               DS.attr      'string'
