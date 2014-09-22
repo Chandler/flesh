@@ -17,7 +17,12 @@ App.Game = DS.Model.extend
   game_end:           DS.attr      'string'
   players:            DS.hasMany   'player', { async: true }
   organization:       DS.belongsTo 'organization'
-  isRunning: (->
+  is_closed: (->
+    end   = moment(@get('game_end'))
+    now   = moment()
+    (now > end)
+  ).property('game_end')
+  is_running: (->
     start = moment(@get('game_start'))
     end   = moment(@get('game_end'))
     now   = moment()

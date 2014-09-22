@@ -10,10 +10,10 @@
    </div>
    <div class="col-md-8">
     {{#each player in players}}
-    <div class="panel panel-primary">
+    <div class="panel {{#if player.game.is_closed}} panel-default {{else}} panel-primary {{/if}}">
       <div class="panel-heading">
         <h3 class="panel-title">
-          {{#link-to 'game' player.game }} Game: {{player.game.name}} {{/link-to}}
+          {{#link-to 'game' player.game}} Game: {{player.game.name}} {{/link-to}}
         </h3>
       </div>
       <div class="panel-body">
