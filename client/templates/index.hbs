@@ -2,7 +2,11 @@
   <div class="jumbotron">
     <h3>Welcome to <span class="logo">flesh</span> </h3>
     <p> You're probably here for the 
-    {{#link-to 'game' 1 }} University of Idaho Spring 2014 Game {{/link-to}} 
+    {{#link-to 'game' 2 }} University of Idaho Fall 2014 Game {{/link-to}}
+    <p>
+    <div class="alert alert-warning"> 
+      {{render sms_instructions}}
+    </div>
     </p>
     {{#if session.isAuthenticated}}
     {{else}}

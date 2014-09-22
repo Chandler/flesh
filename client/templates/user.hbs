@@ -9,17 +9,14 @@
     <h4 class="profile-screen-name"> ({{first_name}} {{last_name}}) </h4>
    </div>
    <div class="col-md-8">
-
     {{#each player in players}}
-
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">
-          {{#link-to 'game' 1 }} Game: {{player.game.name}} {{/link-to}}
+          {{#link-to 'game' player.game }} Game: {{player.game.name}} {{/link-to}}
         </h3>
       </div>
       <div class="panel-body">
-        {{player.game.isRunning}}
         <h1>
           {{#if player.human_code}}
             <span class="label label-success">Human Code: {{player.human_code}}</span>
@@ -32,7 +29,10 @@
    </div>
   </div>
 </div>
+
 <div class="alert alert-warning"> 
-  <h4> Want to add a photo? Go to <a href="http://en.gravatar.com/">http://en.gravatar.com/</a> and setup a Gravatar with the email: {{email}} </h4>
+  <h4> Want to add a photo? Go to <a href="http://en.gravatar.com/">http://en.gravatar.com/</a> and setup a Gravatar with the email: {{email}}
+  {{render sms_instructions}}
 </div>
+
 {{outlet}}

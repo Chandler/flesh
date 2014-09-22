@@ -7,11 +7,6 @@ App.User = DS.Model.extend
   avatar_url:          DS.attr      'string'
   password:            DS.attr      'string'
   players:             DS.hasMany   'player', { async: true }
-  # currentGames: (->
-  #   players      = @get('players')
-  #   games = map(())
-  #   # _.filter(players, (player) -> player.game.isRunning())
-  # ).property("game")
 
 App.Game = DS.Model.extend
   name:               DS.attr      'string'
