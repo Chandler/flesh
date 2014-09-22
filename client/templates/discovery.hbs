@@ -1,5 +1,5 @@
 {{#each game in games}}
-  <div class="game-list-item bs-callout {{#if game.is_closed}}discovery-callout{{else}}discovery-callout-disabled{{/if}}">
+  <div {{bind-attr class=":game-list-item :bs-callout game.is_ended:discovery-callout:discovery-callout-disabled"}}>
     <div class="container-fluid profile-header">
       <div class="row">
         <div class="col-md-12">

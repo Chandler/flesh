@@ -1,5 +1,5 @@
 
-<div class="sub-header profile-header"> 
+<div class="sub-header profile-header">
   <div class="row">
    <div class="col-md-3">
     <div class="profile-image">
@@ -10,7 +10,7 @@
    </div>
    <div class="col-md-8">
     {{#each player in players}}
-    <div class="panel {{#if player.game.is_closed}} panel-default {{else}} panel-primary {{/if}}">
+    <div {{bind-attr class=":panel player.game.is_ended:panel-default:panel-primary"}}>
       <div class="panel-heading">
         <h3 class="panel-title">
           {{#link-to 'game' player.game}} Game: {{player.game.name}} {{/link-to}}
@@ -18,8 +18,14 @@
       </div>
       <div class="panel-body">
         <h1>
-          {{#if player.human_code}}
-            <span class="label label-success">Human Code: {{player.human_code}}</span>
+  <div >
+          {{#if player.is_human}}
+            {{#if player.human_code}}
+              {{#if player.game.is_ended}}
+              {{else}}
+                <span class="label label-success">Human Code: {{player.human_code}}</span>
+              {{/if}}
+            {{/if}}
           {{/if}}
           <span class="label label-warning">Status: {{player.status}}</span>
         </h1>
@@ -30,8 +36,10 @@
   </div>
 </div>
 
-<div class="alert alert-warning"> 
-  <h4> Want to add a photo? Go to <a href="http://en.gravatar.com/">http://en.gravatar.com/</a> and setup a Gravatar with the email: {{email}}
+<div>
+  <h4> Want to add a photo?</h4>
+  <p><a href="https://en.gravatar.com/">Set up a Gravatar</a> with the email: {{email}}</p>
+  <br/>
   {{render sms_instructions}}
 </div>
 

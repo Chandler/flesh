@@ -17,17 +17,17 @@ App.Game = DS.Model.extend
   game_end:           DS.attr      'string'
   players:            DS.hasMany   'player', { async: true }
   organization:       DS.belongsTo 'organization'
-  is_closed: (->
-    end   = moment(@get('game_end'))
-    now   = moment()
-    (now > end)
-  ).property('game_end')
   is_running: (->
     start = moment(@get('game_start'))
     end   = moment(@get('game_end'))
     now   = moment()
     (now > start && now < end)
   ).property('game_start', 'game_end')
+  is_ended: (->
+    end = moment(@get('game_end'))
+    now = moment()
+    (now > end)
+  ).property('game_end')
 
 App.Organization = DS.Model.extend
   name:               DS.attr      'string'
@@ -42,14 +42,20 @@ App.Player = DS.Model.extend
   human_code:         DS.attr       'string'
   game:               DS.belongsTo  'game'
   user:               DS.belongsTo  'user'
+  is_human: (->
+    @get('status') == 'human'
+  ).property('status')
+  is_zombie: (->
+    @get('status') == 'zombie'
+  ).property('status')
 
 App.Event = DS.Model.extend
-  event_type:         DS.attr       'string' 
+  event_type:         DS.attr       'string'
   user:               DS.belongsTo  'user'
   game:               DS.belongsTo  'game'
   organization:       DS.belongsTo  'organization'
   player:             DS.belongsTo  'player'
-  tag:                DS.belongsTo  'tag' 
+  tag:                DS.belongsTo  'tag'
   created_at:         DS.attr       'raw'
 
 App.Tag = DS.Model.extend
@@ -67,7 +73,7 @@ App.Event.FIXTURES = [
   {
     id: 2,
     player: 2,
-    event_type: 'join'    
+    event_type: 'join'
   }
 ]
 
@@ -181,16 +187,16 @@ App.User.FIXTURES = [
 
 App.Organization.FIXTURES = [
   {
-    id: 1,  
-    name: "University of Idaho",       
+    id: 1,
+    name: "University of Idaho",
     slug: "uidaho",
     description: "the best university in the world",
     users: [1,2,3],
     games: [1]
-  }, 
+  },
   {
-    id: 2,  
-    name: "Washington State University",       
+    id: 2,
+    name: "Washington State University",
     slug: "wsu",
     description: "pretty decent university",
     users: [4],
@@ -201,7 +207,7 @@ App.Organization.FIXTURES = [
 App.Game.FIXTURES = [
   {
     id: 1,
-    name: "Idaho Fall Game",       
+    name: "Idaho Fall Game",
     slug: "idahofall2012",
     avatar_url: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTCCdUls2NhompPan8buZ2vaCB_to7qBWUrqzSMuZNl5FeIVvZC",
     description: "the best university in the world",
@@ -209,10 +215,10 @@ App.Game.FIXTURES = [
     players: [1,2,3,4,5,6,7,8,9,10],
     organization: 1
 
-  }, 
+  },
   {
-    id: 2,  
-    name: "WSU fall game",       
+    id: 2,
+    name: "WSU fall game",
     slug: "wsufall2012",
     running_start_time: "1393117974",
     description: "pretty decent university",
@@ -228,7 +234,7 @@ App.Player.FIXTURES = [
     human_code: "ASDF",
     user: 1,
     game: 1
-  }, 
+  },
   {
     id: 2,
     status: "starved",

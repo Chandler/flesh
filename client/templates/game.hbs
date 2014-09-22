@@ -16,7 +16,7 @@
                 <h6>STARVED</h6>
               </div>
             </div><!-- --/col-md-4 ---->
-            
+
             <div class="col-md-3 profile-text">
               <h3>{{name}}</h3>
               <h6>{{organization.location}}</h6>
@@ -37,11 +37,11 @@
                 <p><img src="https://i.imgur.com/gXZP1GKm.jpg" class="img-circle"></p>
               </div>
             </div>
-          </div>   
+          </div>
         </div>
 
 <div class="container-fluid game-profile-body">
-  <div class="row"> 
+  <div class="row">
   <div class="col-md-7">
     <div class="profile-block">
     </div>
@@ -49,50 +49,54 @@
       <div class="block-header event-feed-header">
         <span class="text-white m-t-50 m-b-30 m-r-20 text-center">
          EVENT FEED
-        </span> 
+        </span>
       </div>
       <div class="block-body event-feed-body">
            <div class="chat-room">
             <aside class="mid-side">
               {{#each e in events}}
                 {{event-item event=e}}
-              {{/each}} 
+              {{/each}}
             </aside>
         </div>
       </div>
     </div>
   </div>
   <div class="col-md-5">
-    <div class="row">
-      <div class="col-md-12 m-b-20"> 
-        <div class="profile-block">
+      <div class="col-md-12 m-b-20">
+
+      {{#if game.is_running}}
+      {{#if loggedInPlayer.is_zombie}} <!-- TODO: check the current user in *this* game instead -->
+        <div class="profile-block tag-body">
           <div class="block-header tag-header">
             <span class="text-white m-t-50 m-b-30 m-r-20 text-center"> Tag a Human  </span>
           </div>
-          <div class="block-body tag-body">
+          <div class="block-body tag-body row" style="margin-left: 0px; margin-right: 0px;">
             <div class= "col-md-6">
-             {{ 
+             {{
                 view Ember.TextField
                 type="text"
                 placeholder="Human Code"
                 valueBinding="code"
-             }} 
+             }}
             </div>
            <div class= "col-md-6">
               <div type="button" class="save-tag-btn btn btn-primary btn-lg " {{action "registerTag"}}>save tag</div>
            </div>
           </div>
-            <div class="alert tag-body"> 
+            <div class="col-md-12 tag-body">
               {{render sms_instructions}}
             </div>
         </div>
+        {{/if}}
+        {{/if}}
+
       </div>
-    </div>
     <div class="row">
-      <div class="col-md-12 m-b-20"> 
+      <div class="col-md-12 m-b-20">
         <div class="profile-block">
           <div class="block-header player-list-header">
-            <span class="text-white m-t-50 m-b-30 m-r-20 text-center"> {{players.length}} Players </span> 
+            <span class="text-white m-t-50 m-b-30 m-r-20 text-center"> {{players.length}} Players </span>
           </div>
           <div class="block-body player-list-body">
             {{#each player in players}}
