@@ -6,7 +6,11 @@ App.User = DS.Model.extend
   phone:               DS.attr      'string'
   avatar_url:          DS.attr      'string'
   password:            DS.attr      'string'
+  active_player_id:    DS.attr      'number'
   players:             DS.hasMany   'player', { async: true }
+  active_player: (->
+    @get('players').findBy('id', @get('active_player_id'))
+  ).property('players', 'active_player_id')
 
 App.Game = DS.Model.extend
   name:               DS.attr      'string'
