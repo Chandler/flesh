@@ -1,3 +1,6 @@
+App.IndexRoute = Ember.Route.extend
+  model: ->
+    games: @store.find('game')
 
 # you can only access the settings page if you're authenticated
 App.UserEditRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin,
@@ -23,3 +26,7 @@ App.GameRoute = Ember.Route.extend
 
     events = @store.find('event', { resource: "game", id: model.get('id') })
     controller.set('events', events)
+
+App.DiscoveryRoute = Ember.Route.extend
+  model: ->
+    games: @store.find('game')

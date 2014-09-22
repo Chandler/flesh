@@ -1,15 +1,14 @@
-<div class="bs-callout discovery-callout">
-  <div class="container-fluid profile-header"> 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="game-list-name">
-          {{#link-to 'game' 1 }}University of Idaho Spring 2013 {{/link-to}}
+{{#each game in games}}
+  <div class="game-list-item bs-callout {{#if game.is_closed}}discovery-callout{{else}}discovery-callout-disabled{{/if}}">
+    <div class="container-fluid profile-header">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="">
+            <p class="game-list-name">{{#link-to 'game' game }} {{game.name}} {{/link-to}}</p>
+            <p class="game-list-description">{{game.description}}</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-
-
-
+{{/each}}
