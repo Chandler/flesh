@@ -21,7 +21,8 @@
           <li>{{#link-to 'user.edit' session.user classNames="fa fa-gear"}} Settings {{/link-to}}</li>
           <li><a {{ action 'invalidateSession' }}>Logout</a></li>
           <li>{{#link-to 'user' session.user}} Profile {{/link-to}}</li>
-          <li>{{#link-to 'game' session.user.active_game_id }} Active Game {{/link-to}}</li>
+          <li>{{#link-to 'game' session.user.active_game_id }} Active Game 1 {{/link-to}}</li>
+          <li>{{#link-to 'game' session.active_game_id }} Active Game 2 {{/link-to}}</li>
         {{else}}
           <li>{{#link-to 'login'}} Login {{/link-to}}</li>
           <li>{{#link-to 'users.create'}} Create Account {{/link-to}}</li>

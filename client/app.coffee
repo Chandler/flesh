@@ -57,6 +57,7 @@ App.CustomAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend(
           resolve
             access_token: response.user.authentication_token
             user_id: response.user.id
+            active_game_id: response.user.active_game_id
       ), (xhr, status, error) ->
         Ember.run ->
           reject xhr.responseText
