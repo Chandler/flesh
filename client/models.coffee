@@ -7,6 +7,7 @@ App.User = DS.Model.extend
   avatar_url:          DS.attr      'string'
   password:            DS.attr      'string'
   active_player_id:    DS.attr      'number'
+  active_game_id:      DS.attr      'number'
   players:             DS.hasMany   'player', { async: true }
   active_player: (->
     @get('players').findBy('id', @get('active_player_id'))
